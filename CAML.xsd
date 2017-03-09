@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Confrontation">
+        <xs:complexType>
+            <xs:all>
+                <xs:element minOccurs="0" name="DocumentProperties">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Author" type="xs:string"/>
+                            <xs:element name="Version" type="xs:token"/>
+                            <xs:element name="CreatedAt" type="xs:dateTime"/>
+                            <xs:element name="Applicaton">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="Name" type="xs:string"/>
+                                        <xs:element name="Version" type="xs:token"/>
+                                        <xs:element name="Publisher" type="xs:string"/>
+                                        <xs:element name="Url" type="xs:anyURI"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Title" type="xs:string"/>
+                <xs:element minOccurs="0" name="MomentsOfTruth">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="MomentOfTruth">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="Title" type="xs:string"/>
+                                        <xs:element name="Parties" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence maxOccurs="unbounded">
+                                                  <xs:element name="Party">
+                                                  <xs:complexType>
+                                                  <xs:all>
+                                                  <xs:element name="Title" type="xs:string"/>
+                                                  <xs:element name="Abbreviation" type="xs:string"/>
+                                                  <xs:element name="IsContextual" default="false"
+                                                  type="xs:boolean"/>
+                                                  <xs:element name="Options" minOccurs="0">
+                                                  <xs:complexType>
+                                                  <xs:sequence maxOccurs="unbounded">
+                                                  <xs:element name="Option">
+                                                  <xs:complexType>
+                                                  <xs:all>
+                                                  <xs:element name="Title" type="xs:string"/>
+                                                  </xs:all>
+                                                  <xs:attribute name="id" use="required"
+                                                  type="xs:ID"/>
+                                                  <xs:attribute name="displayOrder"
+                                                  type="xs:positiveInteger"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  </xs:sequence>
+                                                  <xs:attribute name="displayOrder"
+                                                  type="xs:positiveInteger"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="Position">
+                                                  <xs:complexType>
+                                                  <xs:all>
+                                                  <xs:element name="Title" minOccurs="0"
+                                                  type="xs:string"/>
+                                                  <xs:element ref="Actions"/>
+                                                  </xs:all>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="Intention">
+                                                  <xs:complexType>
+                                                  <xs:all>
+                                                  <xs:element ref="Actions"/>
+                                                  </xs:all>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  </xs:all>
+                                                  <xs:attribute name="id" use="required"
+                                                  type="xs:ID"/>
+                                                  <xs:attribute name="displayOrder"
+                                                  type="xs:positiveInteger"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="IntentionsTitle" minOccurs="0"
+                                            type="xs:string"> </xs:element>
+                                    </xs:all>
+                                    <xs:attribute name="id" use="required" type="xs:ID"/>
+                                    <xs:attribute name="antecedent" type="xs:IDREF"/>
+                                    <xs:attribute name="displayOrder" type="xs:positiveInteger"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="Notes">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="Note">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="displayOrder"
+                                                type="xs:positiveInteger"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Actions">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="Action">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Status" default="left open">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:token">
+                                        <xs:enumeration value="left open"/>
+                                        <xs:enumeration value="taken"/>
+                                        <xs:enumeration value="not taken"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Doubters" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="Doubter">
+                                            <xs:complexType>
+                                                <xs:attribute name="party" type="xs:IDREF"
+                                                  use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="IsCommunicated" default="true" type="xs:boolean"/>
+                        </xs:all>
+                        <xs:attribute name="option" use="required" type="xs:IDREF"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
