@@ -1,2 +1,2 @@
 # CAML
-XML Schema for describing confrontations
+XML Schema for describing confrontations.
